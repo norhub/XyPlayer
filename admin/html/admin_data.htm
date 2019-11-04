@@ -1,0 +1,85 @@
+<?php include '../save/top.inc.php'; ?>
+<?php include "block_header.htm";?>
+
+    <body>
+        <div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a><cite>首页</cite></a>  
+                <a><cite>系统设置</cite></a>
+                <a><cite>数据管理</cite></a>
+            </span>
+
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+            <button   onclick="updata()" class="layui-btn"    style="line-height:1.6em;margin-top:3px;margin-right:5px;float:right" > 更新规则  </button> 
+        </div>
+        <div class="x-body">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">搜索数据</li>
+             
+
+                </ul>
+                <div class="layui-tab-content" >
+
+
+
+                    <div class="layui-tab-item layui-show">
+
+
+                        <form class="layui-form layui-form-pane" action="">
+
+                                <div class="layui-form-item">
+                   
+                  
+                            
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">
+                                    搜索数据内容(格式：显示名称=>搜索次数)：
+                                </label>
+                                <div class="layui-input-block">
+                                <textarea name="socode_top_val" class="layui-textarea" style="height:220px;"><?php  arsort($TOPDATA); foreach ($TOPDATA as $key => $val) { echo "$key => $val\r\n"; } ?></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+
+                                <button class="layui-btn" lay-submit="" lay-filter="data">
+                                    保存
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                
+
+                </div>
+
+            </div>
+        </div> 
+    </div>
+
+
+    <script>
+
+        layui.use(['form', 'layer'], function () {
+            $ = layui.jquery;
+            var form = layui.form, layer = layui.layer;
+            //监听提交
+            form.on('submit(data)', function (data) {
+                //发异步，把数据提交给php
+                x_admin_post("admin_data_save.php", data.field);
+                return false;
+            });
+
+        });
+
+    
+
+    </script>
+
+
+
+</body>
+
+</html>

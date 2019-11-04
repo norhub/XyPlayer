@@ -1,0 +1,42 @@
+<div id="xyplayer">
+<script type="text/javascript">
+var slideout = new Slideout({
+	'panel': document.getElementById('main'),
+	'menu': document.getElementById('menu'),
+	'padding': 156,
+	'tolerance': 70
+  });
+  document.getElementById('logo').addEventListener('click', function(){slideout.toggle();});
+ // document.getElementById('book').addEventListener('click', function(){slideout.toggle();});
+  document.querySelector('.menu').addEventListener('click', function(eve) {
+	if (eve.target.nodeName === 'LI' || eve.target.nodeName === 'A') { slideout.close(); }
+  });
+  
+ // if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+	  
+	// $("body").css({"margin-top":"50px","height":$(window).height()-50})
+ // }
+</script>
+
+<script type="text/javascript">
+var videoObject = {   	 
+	 variable:'xyplay',        //播放器对象名称
+	 logo:'#logo',             //线路切换图标容器,忽略时为'.logo',注意：'.'是样式选择器,'#'是id选择器;
+	 list:'#list',             //剧集切换图标容器,忽略时为'.list';
+     line:'#line',             //线路列表容器,忽略时为'#line';
+     plive:"#live",           //直播容器,忽略时为'#live'; 
+	 plist:'.aside',             // 播放列表 容器,忽略时为'#list';
+	 flaglist:"#flaglist" ,      //来源DIV容器,忽略时为'#flaglist';
+     playlist:'#playlist',      //列表DIV容器,忽略时为'#playlist';
+     player:'#player',	        //视频DIV容器,忽略时为'#player';
+	 playad:'#playad',	        //广告DIV容器,忽略时为'#playad';
+	 input:'#wd',          //搜索框容器,，忽略时为'#wd';
+	 autohide:false,             //是否自动隐藏列表,忽略时为false;
+	 api: '<?php echo $CONFIG["API_PATH"]; ?>',                 //api地址,忽略时为'api.php'	
+	 loadimg: '<?php echo TEMPLETS_PATH ?>images/loading.gif'   //加载动画,忽略时为空。
+};
+ xyplay=new xyplayer(videoObject);
+
+</script>
+
+</div>

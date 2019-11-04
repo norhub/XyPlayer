@@ -1,0 +1,17 @@
+/*  添加视频遮挡层 ，可用来遮挡视频跑马灯广告   */  
+.fixed{
+
+/*  设置广告高度,支持百分百  */  
+
+height:15%;
+
+/*  下面配置一般无需修改    */  
+position:absolute;
+z-index: 2147483647;
+background-color:#000;
+left:0px; top:0px ;
+width:100%;
+
+}
+ /*  移动设备自适应宽高  */  
+@media screen and (max-width: 650px) {.fixed {height:36%;}}

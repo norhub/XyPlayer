@@ -1,0 +1,37 @@
+1.播放器目录必须存在一个默认文档，是WEB服务指定的默认文档名，例如：index.html,index.php
+
+ 
+JS会传递下面几个参数过来：
+
+url         视频地址，主要参数，必须
+live        是否直播 1为直播,0为点播
+autoplay    自动播放 1为启用,0为关闭
+seektime    记忆播放 1为启用,0为关闭
+logo_off    LOGO开关,1为启用,0为关闭
+
+代码例子：
+
+ <script type="text/javascript">
+       
+  var url=decodeURIComponent(_GET('url'));              //取得url地址
+  var autoplay= _GET('autoplay')==="0" ? 0 : 1;
+         //自动播放，默认启用  
+  var seektime=_GET('seektime')==="0" ? 0 : 1;        //记忆播放，默认启用
+  var logo_off=_GET('logo_off')==="1" ? 1 : 0;        //LOGO开关，默认关闭
+
+ 
+  //更多代码
+
+ function _GET(name,isurl) { 
+    isurl=isurl || false;
+	var word="(^|&)" + name + "=([^&]*)(&|$)";
+	if(isurl){word="(^|&)" + name + "=(.*?)$";}	
+	var reg = new RegExp(word, "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r !== null) {
+        return decodeURI(r[2]);
+    };
+    return "";
+}  
+
+ </script>

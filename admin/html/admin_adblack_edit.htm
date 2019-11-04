@@ -1,0 +1,133 @@
+<?php
+if (filter_has_var(INPUT_GET, 'id')){ $id = filter_input(INPUT_GET, 'id');}else{exit("参数调用错误！");}
+?>
+<?php include "block_header.htm";?>
+    <body>
+        <div class="x-body">
+            <form class="layui-form">
+
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        描述
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="BLACKLIST_ADBLACK_MATCH_NAME" autocomplete="off" value="<?php echo $CONFIG["BLACKLIST"]['adblack']['match'][$id]['name']; ?>" class="layui-input" >		
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        输入一个名称用来进行区分，例：解析过滤
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        状态
+                    </label>
+                    <div class="layui-input-inline">
+                        <select name="BLACKLIST_ADBLACK_MATCH_OFF" lay-filter="province">							 
+
+                            <?php foreach (array("关闭", "启用") as $key => $val): ?>							 							 
+                                <option value="<?php echo $key ?>"  <?php echo ($CONFIG["BLACKLIST"]['adblack']['match'][$id]['off'] == $key) ? "selected" : ''; ?>><?php echo $val ?></option>	   
+<?php endforeach; ?> 
+
+
+
+
+                        </select>
+                    </div>
+
+                    <div class="layui-input-inline">
+                        <input type="text" name="BLACKLIST_ADBLACK_MATCH_NUM" autocomplete="off" value="<?php echo $CONFIG["BLACKLIST"]['adblack']['match'][$id]['num']; ?>" class="layui-input" >		
+                    </div>
+
+
+                    <div class="layui-form-mid layui-word-aux">
+                        启用状态及优先级，数字越小，优先级越高
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        目标
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="BLACKLIST_ADBLACK_MATCH_TARGET" autocomplete="off" value="<?php echo base64_decode($CONFIG["BLACKLIST"]['adblack']['match'][$id]['target']); ?>" class="layui-input" >
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span> 需过滤网址URL,支持正则(.* 表示不限制)。
+                    </div>
+                </div>
+
+                 <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        伪装
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="BLACKLIST_ADBLACK_MATCH_REF" autocomplete="off" value="<?php echo $CONFIG["BLACKLIST"]['adblack']['match'][$id]['ref']; ?>"  placeholder="目标网址" class="layui-input" >
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span> 伪装来源,一般为目标网址,为空则使用目标网址。
+                    </div>
+                </div>
+    
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                       规则
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea name="BLACKLIST_ADBLACK_MATCH_VAL"  style="height:500px"   class="layui-textarea"  placeholder="过滤内容（支持正则）=>替换内容，每行一条"><?php 
+foreach ($CONFIG["BLACKLIST"]['adblack']['match'][$id]['val'] as  $key =>$val) {
+    echo "$key =>$val" . "\r\n";
+} ?></textarea>
+                        
+                         <div class="layui-form-mid layui-word-aux">
+                          替换规则，格式：需替换内容=>待替换内容<br>
+                          备注：需替换内容支持正则，可以通过查看网页源代码获取，待替换内容可以为空,则删除需替换内容；
+                        
+                        </div>  
+                        
+                        
+                        
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-filter="edit" lay-submit="" >
+                        修改
+                    </button>
+                </div>
+            </form>
+        </div>
+        <script>
+            layui.use(['form', 'layer'], function () {
+                $ = layui.jquery;
+                var form = layui.form
+                        , layer = layui.layer;
+
+                //监听提交
+                form.on('submit(edit)', function (data) {
+                 
+                 //加密特殊字符数据
+                    if ("undefined" !== typeof data.field["BLACKLIST_ADBLACK_MATCH_TARGET"]) {
+                        data.field.BLACKLIST_ADBLACK_MATCH_TARGET=Base64.encode(data.field.BLACKLIST_ADBLACK_MATCH_TARGET);
+                         data.field.BLACKLIST_ADBLACK_MATCH_VAL=Base64.encode(data.field.BLACKLIST_ADBLACK_MATCH_VAL);
+                    }
+                  
+                 
+                     //发异步，把数据提交给php
+                        data.field.type = 'adblack_match_edit';  data.field.id = "<?php echo $id; ?>";
+                        x_admin_post("admin.php", data.field);
+                        return false;
+                });
+
+
+            });
+        </script>
+
+
+    </body>
+
+</html>

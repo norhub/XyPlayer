@@ -1,0 +1,169 @@
+html,
+body {
+    background-color: #000;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    color: #999;
+    overflow: hidden;
+}
+
+
+
+
+/* 头部 */
+
+#header {
+    height: 20px;
+    border-color: black;
+}
+
+/* 内容区 */
+
+#section {
+    height: calc(100% - 20px);
+    border-color: black;
+}
+
+#player,
+#playad {
+    height: 100% !important;
+    width: 100% !important;
+    text-align: center;
+    object-fit: fill;
+}
+
+/* 线路列表图标 */
+.line {
+    display: none;
+    float: left;
+    width: 35px;
+    height: 20px;
+    background: transparent url("line.png") no-repeat scroll;
+    cursor: pointer;
+}
+
+/* 播放列表图标 */
+.list {
+    display: none;
+    float: right;
+    width: 35px;
+    height: 20px;
+    background: transparent url("list.png") no-repeat scroll;
+    cursor: pointer;
+}
+
+#flaglist,
+#playlist
+ {
+    display: none;
+}
+
+/* 线路列表 */
+#line{
+    /*  设置纵向滚动条  */
+    z-index: 2147483647;
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: auto;
+    width:100px;
+    margin:0px;
+    text-align: center;
+    display: none;
+    background-color: #000;
+    max-height: calc(100% - 20px);
+    /*  半透明背景        
+      filter: alpha(opacity=50);
+      -moz-opacity: 0.5;
+      -khtml-opacity: 0.5;
+      opacity: 0.5;
+    */
+     
+}
+
+   /* 隐藏滚动条 */
+ #line::-webkit-scrollbar {
+    width:0px;
+    height:0px;
+    }
+
+/*  移动设备自适应宽高   */
+@media screen and (max-width: 650px) {
+    #line {
+        width: 100%;
+        height: auto;
+        left: 0px;
+        max-width: 100%;
+        min-width: auto;
+    }
+}
+
+
+/*  播放列表内容   */
+
+#list {
+    z-index: 2147483647;
+    display: none;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: -25px;
+    text-decoration: none;
+    margin-top: 20px;
+	text-align: center;
+
+    /*  设置纵向滚动条  */
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-width: 230px;
+    min-width: 130px;
+    max-height: calc(100% - 75px);
+
+    /*  半透明背景  */
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}
+
+/*  移动设备自适应宽高  */
+@media screen and (max-width: 650px) {
+    #list {
+        width: 100%;
+        height: auto;
+        left: 0px;
+        right:0px;
+        max-width: 100%;
+        min-width: auto;
+    }
+}
+
+/* 列表元素 */
+li {
+
+    display: inline-table;
+    border: 1px solid #f00;
+    /* 边框大小及颜色 */
+    color: #0f0;
+    /*  列表字体颜色 */
+    width: 80px;
+    padding: 5px;
+    margin: 5px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 5px;
+    color: #2693FF;
+    border: 1px solid #2693FF;
+    cursor: pointer;
+    /* 鼠标设置为手型 */
+}
+
+/* 列表元素热点 */
+li:hover {
+    color: #FFF;
+    background-color: #2693FF;
+
+}

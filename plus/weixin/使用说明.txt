@@ -1,0 +1,21 @@
+打开index.php ，找到下面代码：
+
+ //  -----可配置区域开始-------------  
+ 
+//微信令牌，请与微信公众号后台同步
+define("TOKEN", "weixin"); 
+//解析地址
+define("API", "http://bbs.52jscn.com");
+//显示数量
+define("NUM", "5");
+//公众号名称          
+define("TITLE", "星源影视");
+//默认图片	
+define("PIC", API."/plus/weixin/play.jpg");
+//留言本地址
+define("BOOK", "http://bbs.52jscn.com/2.html");
+
+//  -----可配置区域结束-------------  
+
+
+修改为自己的信息即可！

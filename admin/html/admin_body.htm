@@ -1,0 +1,76 @@
+<?php include "block_header.htm";?>
+    <body>
+        <div class="x-body layui-anim layui-anim-up"> 
+
+            <blockquote class="layui-elem-quote">
+                &nbsp;系统信息摘要 【当前系统版本：<script language="JavaScript" type="text/javascript" charset="utf-8" src="../save/ver.js?ver=<?php echo uniqid()?>"></script>
+                &nbsp;&nbsp;源码论坛：http://bbs.52jscn.com
+                &nbsp;&nbsp;当前云规则版本：<script language="JavaScript" type="text/javascript" charset="utf-8" src="../save/yun.ver.js?ver=<?php echo uniqid()?>"></script>
+                &nbsp;&nbsp;<a onclick='x_admin_post("admin.php", {type:"upyundata"});' href="javascript:;"><font color="blue">更新规则</font></a>
+
+                】
+            </blockquote>
+     
+            <fieldset class="layui-elem-field">
+            <legend>系统信息</legend>
+                    <table class="layui-table">
+                        <tbody>
+
+                            <tr>
+                                <th>当前域名</th>
+                                <td><?php echo filter_input(INPUT_SERVER, "SERVER_NAME"); ?></td></tr>
+                            <tr>
+                                <th>系统时间</th>
+                                <td id="time"></td></tr>
+                            <tr>
+                                <th>OS版本</th>
+                                <td><?php echo php_uname('s') . php_uname('r'); ?></td></tr>
+
+                            <tr>
+                                <th>运行环境</th>
+                                <td><?php echo filter_input(INPUT_SERVER, "SERVER_SOFTWARE"); ?></td></tr>
+                            <tr>
+                                <th>PHP版本</th>
+                                <td><?php echo PHP_VERSION ?></td></tr>
+                       <tr>
+                                <th>当前版本</th>
+                                <td><script language="JavaScript" type="text/javascript" charset="utf-8" src="../save/ver.js?ver=<?php echo uniqid()?>"></script></td></tr>
+
+                            <tr>
+                                <th>当前规则</th>
+                                <td><script language="JavaScript" type="text/javascript" charset="utf-8" src="../save/yun.ver.js?ver=<?php echo uniqid()?>"></script></td></tr>
+                            <tr>
+                                <th>版权所有</th>
+                                <td><a  target="__blank" href="//xydai.cn"><font color=\'#0000ff\'>piyibo.cn</font></a></td></tr>
+
+                            
+                        </tbody>
+                    </table>
+             
+            </fieldset>
+  
+            <blockquote class="layui-elem-quote layui-quote-nm">欢迎访问官方主页获取帮助：<a href="http://bbs.52jscn.com" target="_blank">xymov.net</a></blockquote>
+        </div>
+
+       <script>
+       
+var timerID = setInterval(updateTime, 1000);
+updateTime();
+function updateTime() {
+    var cd = new Date();
+    var time=zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+    var data=zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2);   
+    $('#time').text(data+" "+time);
+};
+function zeroPadding(num, digit) {
+    var zero = '';
+    for(var i = 0; i < digit; i++) {
+        zero += '0';
+    }
+    return (zero + num).slice(-digit);
+}
+ 
+ </script>
+        
+    </body>
+</html>

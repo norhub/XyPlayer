@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>    
+<head> <?php include_once "header.htm"; ?> </head>
+<body>
+
+  <div id="header">
+	  <div class="line"></div>
+	  <div class="list"></div>
+	  <?php if($CONFIG["BOOK_INFO"]['off']==1):?>
+            <div>
+               <marquee scrollamount=3><?php echo base64_decode($CONFIG["BOOK_INFO"]['info']);?></marquee>
+            </div>
+     <?php endif ?>
+	  
+  </div>
+
+ 
+  <div id="line">
+    <?php if($CONFIG["play"]['off']['live']==1):?><font style="color: #2693FF;">线路切换</font><?php endif ?>
+	<div id="linelist"></div>
+	<?php if($CONFIG["play"]['off']['live']==1):?>
+	<font style="color: #2693FF">视频直播</font>
+	<div id="livelist"></div>
+	<?php endif ?>
+ </div>
+
+<div id="list">	   
+		<div id="flaglist"> </div> 
+		<div id="playlist"></div> 		
+</div>
+  <div id="section">
+		<div id="playad"></div>
+		<div id="player">  </div>	
+  </div>
+<div id="footer">   
+		<?php include_once "footer.htm"; ?>
+        <?php include_once "player.htm"; ?>
+</div>
+</body>
+
+</html>

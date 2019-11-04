@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+    <head>  
+        <title>H5 Player</title>    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- IE内核 强制使用最新的引擎渲染网页 -->
+        <meta name="renderer" content="webkit">  <!-- 启用360浏览器的极速模式(webkit) -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0 ,maximum-scale=1.0, user-scalable=no"><!-- 手机H5兼容模式 -->
+        <!--必要样式-->  
+        <script type="text/javascript"  src="../../include/jquery.min.js" ></script>
+        <link href="./video.css" rel="stylesheet">
+        <script type="text/javascript"  src="../../include/class.main.js" ></script>
+        <style type="text/css">
+            html,body{
+                background-color:#000;
+                padding: 0;
+                margin: 0;
+                height:100%;
+                width:100%; 
+                color:#999;
+                overflow:hidden;
+            }
+            #video,.video{
+                height:100% !important; 
+                width:100% !important ;  
+            }
+        </style>	 
+    </head>
+    <body>
+        <div class="video">
+            <video id="video"  class="video-js vjs-big-play-centered"   controls="controls"  playsinline="true" webkit-playsinline="true" x-webkit-airplay="allow"   x5-video-player-fullscreen="true"  preload="auto">	  
+            </video>
+        </div>	
+        <script src="./video.js"></script>
+        <script src="./videojs-contrib-hls.js"></script>	
+        <script type="text/javascript">
+            var xyplay = ("undefined" !== typeof parent.xyplay) ? parent.xyplay : parent.parent.xyplay;
+            var videoUrl = decodeURIComponent(_GET('url'));
+            var player = document.getElementById('video');
+            player.innerHTML = '<source src="' + videoUrl + '" type="application/x-mpegURL" ><source src="' + videoUrl + '" type="video/mp4"><source src="' + videoUrl + '" type="video/webm"><source src="' + videoUrl + '" type="video/ogg">您的浏览器不支持此视频播放！';
+            if (_GET('autoplay')!=="0") {player.autoplay = "autoplay";}
+
+           //手机或支持视频采用原生H5播放
+            if (is_mobile()|| videoUrl.search(/\.(mp4|webm|ogg)$/i)!==-1) {
+                
+                 if("undefined" !== typeof xyplay){ 
+                    player.addEventListener("ended", function () {xyplay.video_next();});
+                    player.addEventListener("error", function () {xyplay.errorHandler();});
+                }
+                
+            //PC端m3u8使用videojs插件播放
+            } else {
+                player.innerHTML = '<source src="' + videoUrl + '" type="application/x-mpegURL"><source src="' + videoUrl + '" type="video/mp4"><source src="' + videoUrl + '" type="video/webm"><source src="' + videoUrl + '" type="video/ogg">您的浏览器不支持此视频播放！';
+                var myPlayer = videojs('video', {
+                    bigPlayButton: false,
+                    textTrackDisplay: false,
+                    posterImage: true,
+                    errorDisplay: false,
+                    controlBar: true
+                }, function () {
+                       this.on('loadedmetadata', function () {
+                        myPlayer.play();
+                    });
+                     if("undefined" !== typeof xyplay){       
+                       this.on('ended', function () { xyplay.video_next(); });
+                       this.on('error', function () {xyplay.errorHandler();});
+                    }
+                });
+
+            }
+
+        </script>
+
+    </body>
+</html>

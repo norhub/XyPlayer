@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ch-cn">
+<head>
+<title>xyplay x3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="referrer" content="never"/>
+<meta name="renderer" content="webkit"/>
+<meta name="msapplication-tap-highlight" content="no"/>
+<meta name="HandheldFriendly" content="true"/>
+<meta name="x5-page-mode" content="app"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<script type="text/javascript" src="hls.min.js" ></script>
+<link rel="stylesheet" href="DPlayer.min.css">
+<script type="text/javascript" src="DPlayer.min.js" ></script>
+<style type="text/css">
+
+html,body{
+background-color:#000;
+padding: 0;
+margin: 0;
+height:100%;
+width:100%;
+color:#999;
+overflow:hidden;
+}
+#video{
+height:100%!important;
+width:100%!important;
+object-fit:fill;
+}
+
+</style>
+</head>
+
+<body>
+<div id="video"></div>	
+
+
+<script type="text/javascript">       
+		 var videoUrl=decodeURIComponent(_GET('url'));		 		 
+		 var player=document.getElementById('video');      			   			   	 	      
+	     var videoObject = {
+         element: player,
+         autoplay:true,
+         //front:"parent.video_front",
+          next:"parent.video_next",
+		  //list:"parent.xyplay.onlist",
+          //line:"parent.video_line",
+          
+         video: {
+                url: videoUrl
+              }
+           };	   
+		 if(is_mobile()){videoObject["autoplay"]=false;}
+		 player = new DPlayer(videoObject); 	
+        // player.on("ended",function(){parent.xyplay.video_next()});
+	    // player.on("error",function(){parent.xyplay.errorHandler()});
+		 //player.play();
+	
+
+//取网址参数
+function _GET(name,isurl) { 
+    isurl=isurl || false;
+	var word="(^|&)" + name + "=([^&]*)(&|$)";
+	if(isurl){word="(^|&)" + name + "=(.*?)$";}	
+	var reg = new RegExp(word, "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r !== null) {
+        return decodeURI(r[2]);
+    };
+    return "";
+}
+
+//判断设备类型
+function is_mobile() {
+    var regex_match = /(nokia|iphone|android|motorola|micromessenger|^mot-|softbank|foma|docomo|kddi|up.browser|up.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte-|longcos|pantech|gionee|^sie-|portalmmm|jigs browser|hiptop|^benq|haier|^lct|operas*mobi|opera*mini|320x320|240x320|176x220)/i;
+    var u = navigator.userAgent;
+    if (null === u) {
+        return true;
+    }
+    var result = regex_match.exec(u);
+    if (null === result) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+
+	
+	</script>
+
+</body></html>

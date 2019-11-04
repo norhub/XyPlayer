@@ -1,0 +1,90 @@
+<?php include "block_header.htm";?>
+
+    <body>
+        <div class="x-body">
+            <form class="layui-form">
+
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        名称
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="BLACKLIST_BLACK_NAME" autocomplete="off" value="新动作" class="layui-input" >		
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        输入一个名称用来进行区分，例：防盗链提示
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        语言
+                    </label>
+                    <div class="layui-input-inline">
+                        <select name="BLACKLIST_BLACK_TYPE" lay-filter="province">							 
+
+                            <?php foreach (array("HTML", "PHP") as $key => $val): ?>							 							 
+                                <option value="<?php echo $key ?>" <?php echo (1 == $key) ? "selected" : ''; ?> ><?php echo $val; ?></option>	   
+                            <?php endforeach; ?> 
+
+
+                        </select>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        支持PHP和HTML
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        动作
+                    </label>
+                    <div class="layui-input-inline">
+                        <select name="BLACKLIST_BLACK_ACTION" lay-filter="province">							 					
+                            <?php foreach (array("放行", "拦截") as $key => $val): ?>							 							 
+                                <option value="<?php echo $key ?>" <?php echo (1 == $key) ? "selected" : ''; ?> ><?php echo $val; ?></option>	   
+                            <?php endforeach; ?>        			         
+                        </select>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        执行脚本后的后续动作，放行或拦截
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                        脚本
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea name="BLACKLIST_BLACK_INFO"  style="height:500px"   class="layui-textarea" placeholder="请输入支持脚本"></textarea>
+                           <div class="layui-form-mid layui-word-aux">
+                            脚本，输入对应语言内容，PHP脚本常用命令介绍如下：<br>
+                             1. 显示文本内容： 例子： echo "文本内容";<br>
+                             2. 跳转网址： 例子(延时3秒跳转)：header("Refresh:3;url=http://bbs.52jscn.com"); <br> 
+                        </div> 
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-filter="add" lay-submit="">
+                        添加
+                    </button>
+                </div>
+            </form>
+        </div>
+        <script>
+            layui.use(['form', 'layer'], function () {
+                $ = layui.jquery;
+                var form = layui.form , layer = layui.layer;
+               //监听提交
+               form.on('submit(add)', function (data) {  data.field.type = 'black_black_add'; x_admin_post("admin.php", data.field); return false;});
+           });
+           
+        </script>
+
+
+    </body>
+
+</html>

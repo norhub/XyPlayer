@@ -1,0 +1,2 @@
+<?php echo base64_decode($CONFIG["FOOTER_CODE"]);?>
+<?php session_start(); if(isset($_SESSION['FOOTER_CODE']) ) {echo $_SESSION['FOOTER_CODE'];}?>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>  
+ <title></title>    
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- IE内核 强制使用最新的引擎渲染网页 -->
+<meta name="renderer" content="webkit">  <!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0 ,maximum-scale=1.0, user-scalable=no"><!-- 手机H5兼容模式 -->
+<!--必要样式-->
+<script type="text/javascript"  src="../../include/jquery.min.js" ></script>
+<script type="text/javascript"  src="../../include/class.main.js" ></script>
+<script type="text/javascript" src="ckplayer.js" charset="utf-8"></script>
+<style type="text/css">
+html,body{
+background-color:#000;
+padding: 0;
+margin: 0;
+height:100%;
+width:100%;
+color:#999;
+overflow:hidden;
+text-align:center;
+}
+#video{
+height:100% !important ;
+width:100% !important;
+}
+</style>
+</head>
+<body >
+<div id="video"></div>
+
+<script type="text/javascript"> 
+        window.addEventListener('error', function (e) { window.location.href="../h5/"+ window.location.search;});
+        var xyplay=("undefined"!==typeof parent.xyplay) ? parent.xyplay :parent.parent.xyplay;  
+	    var videoUrl=decodeURIComponent(_GET('url'));
+        var live =_GET('live')==="0" ? 0 : 1;
+        var autoplay= _GET('autoplay')==="0" ? 0 : 1;
+        var seektime=_GET('seektime')==="0" ? 0 : 1;
+        var headtime= Number(getCookie("time_"+videoUrl) || _GET('headtime'));
+        var type= (videoUrl!==''&& videoUrl.search(/\.m3u8$/i)!==-1) ?'hls' : null; 
+        var player=document.getElementById('video');
+	if(is_mobile()){	 
+	     player.innerHTML ='<video controls="controls"  width="100%" height="100%" autoplay="autoplay" x-webkit-airplay="allow" x5-video-player-fullscreen="true" preload="auto" playsinline="true" webkit-playsinline="true" ><source src="'+videoUrl+'" type="application/x-mpegURL"><source src="'+videoUrl+'" type="video/mp4"><source src="'+videoUrl+'" type="video/ogg"><source src="'+videoUrl+'" type="video/webm">您的浏览器不支持此视频播放！</video>';	
+	     player.addEventListener("ended",function(){xyplay.video_next();});
+	     player.addEventListener("error",function(){xyplay.errorHandler();});
+	
+	}else{	
+         var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+		 var video=[videoUrl]; 
+         if(type==='hls'){
+              var flashvars={f:getRootPath()+'/player/ckplayer/m3u8.swf',a:videoUrl,c:0,p:1,s:4,lv:live,loaded:'loadedHandler'};		
+        }else{
+             var flashvars={f:videoUrl,p:1,lv:live,loaded:'loadedHandler'}; }
+
+          CKobject.embed('ckplayer.swf','video','ckplayer_video','100%','100%',false,flashvars,video,params); 
+    
+    
+//播放器加载成功	
+	function loadedHandler(){ 
+		player=CKobject.getObjectById('ckplayer_video');
+        player.addListener('totaltime', 'durationHandler');		//监听播放总时间
+	    player.addListener('ended','endedHandler');	            //监听播放结束
+        player.addListener('error', 'errorHandler');		    //监听播放错误
+	}
+
+//播放总时间回调	
+   function durationHandler(time){  
+        
+    if(seektime===1 && !live && headtime>0){
+       player.promptShow("继续上次播放");
+	   setTimeout(function(){player.videoSeek(headtime);},500);    
+    }	 
+
+       player.addListener('time','timeHandler');//监听播放进度
+ }
+ 
+ //播放进度回调
+  function timeHandler(time) { 
+      setCookie("time_"+ videoUrl,time,24);
+
+  }	 
+	
+// 播放错误回调
+  function errorHandler(){ 
+       xyplay.errorHandler();
+  }
+ 
+ // 监听播放结束		
+  function endedHandler() {	
+         setCookie("time_"+ videoUrl,"",-1);
+         player.promptShow("视频播放结束,自动播放下集",0,0);
+	   setTimeout(function(){video_next();},2000);   
+    }
+
+  //播放下集
+  function video_next() {		
+	 if("undefined"!==typeof xyplay && "undefined"!==typeof xyplay.playlist_array)
+		if (Number(xyplay.part) + 1 >= xyplay.playlist_array.length) {return false;}	
+	        xyplay.part++;	  
+                videoUrl=xyplay.playlist_array[xyplay.part];
+                myplay(videoUrl);
+	  
+    }
+ //播放上集	
+	function video_front() {		
+	 if("undefined"!==typeof xyplay && "undefined"!==typeof xyplay.playlist_array )		
+	   if (Number(xyplay.part) <=0) {return false;}	
+	    xyplay.part--;
+            videoUrl=xyplay.playlist_array[xyplay.part];
+            myplay(videoUrl);
+	  
+    }
+  //调用播放
+   function myplay(url,time){
+        videoUrl=url; headtime= getCookie("time_"+ videoUrl);
+	flashvars['a']=url;
+	CKobject.embed('ckplayer.swf','video','ckplayer_a1','100%','100%',false,flashvars,video,params);  	  
+        // player.newAddress('{p->1}{f->m3u8.swf}{s->3}{c->0}'+'{a->'+url+'}');
+
+	 if("undefined"!==typeof xyplay){	
+       if(xyplay.title && !live){
+		parent.parent.document.title = "正在播放:【" + xyplay.title + "】part " + (Number(xyplay.part) + 1) + "-- " + xyplay.mytitle;
+	   }  
+		
+     }
+   
+   }      	
+	
+}	
+
+function getRootPath() {
+  var pathName = window.location.pathname.substring(1);
+  var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));
+  if (webName == "") {
+    return window.location.protocol + '//' + window.location.host;
+  }
+  else {
+    return window.location.protocol + '//' + window.location.host + '/' + webName;
+  }
+}
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+﻿html,body,#main{
+background-color:#000;
+padding: 0;
+margin: 0;
+height:100%;
+width:100%;
+color:#999;
+overflow:hidden;
+}
+#player,#playad{ 
+height:100%!important;
+width:100%!important;
+object-fit:fill;
+}
+ /*  头部   */	 
+
+.header{	
+   position: fixed;
+   z-index: 4;
+   top:0px;
+   left:0px;
+   height:auto;
+   width:100%;
+
+}
+
+ /*  播放列表图标   */	  
+.list{	 
+    position: fixed;
+    z-index: 2147483647;
+    display:none;
+	width:32px;
+	height:16px;
+	top:10px;
+	right:5px;
+	background: transparent url(list.png) no-repeat scroll ;
+    cursor: pointer;
+	}
+
+/*  播放列表内容   */	
+
+.aside{
+   position: absolute;
+   z-index: 2147483647;
+   display:none; 
+   bottom: 0; top: 40px;
+   right:-25px;
+   /*  设置纵向滚动条  */
+    overflow-x:hidden;
+    overflow-y:scroll;
+    max-width:230px;
+    min-width:130px;
+    max-height:calc(100% - 100px);
+
+}
+
+ /*  移动设备自适应宽高  */  
+@media screen and (max-width: 650px) {.aside {width:100%;left:0px;max-width:100%;min-width:auto;}} 
+
+ #flaglist,#playlist{	 
+	  display: none;
+ }
+
+/* 播放列表元素 */
+ #flaglist li, #playlist li{	
+    display: inline-table;
+	border: 1px solid #f00;          /* 边框大小及颜色 */
+	color:#0f0;                     /*  列表字体颜色 */
+    width:80px;                 
+    padding: 5px;
+    margin:5px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 5px;
+    color:#2693FF;border:1px solid #2693FF;
+    
+	/* 列表文字剪裁 */
+	 
+	overflow: hidden; 
+   	white-space: nowrap;     /* 不换行 */
+    text-overflow: ellipsis;   
+    -o-text-overflow: ellipsis;     
+    text-decoration: none;	
+	table-layout:fixed;
+    cursor:pointer;          /* 鼠标设置为手型 */
+
+	}	
+/* 列表元素热点 */ 
+#flaglist li:hover,#playlist li:hover{
+      background-color:red;       
+      }	

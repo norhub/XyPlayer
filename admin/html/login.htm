@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="renderer" content="webkit"/>
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/> <!-- 手机H5兼容模式 --> 
+        <title>后台登录-XyPlayer X3</title>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/xadmin.css">
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./js/xadmin.js"></script>   
+     
+    </head>
+    <body class="login-bg">
+
+        <div class="login layui-anim layui-anim-up">
+            <div class="message">XyPlayer X3 管理登录</div>
+            <div id="darkbannerwrap"></div>
+
+            <form method="post" class="layui-form" action="login.php">
+                <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+                <hr class="hr15">
+                <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+                <hr class="hr15">
+                <div>
+                <input  AUTOCOMPLETE="OFF" style="float:left;width:210px;text-transform:uppercase;" name="validate" placeholder="输入右侧验证码"  type="text" lay-verify="required" class="layui-input" >
+                 <img  style="float:right;cursor:pointer;" title="看不清？点击更换" src="login.php?action=validate" onclick="this.src=this.src.split('&')[0] + '&'+ new Date().getTime()" />
+                 <hr class="hr15">
+                </div>
+                <input value="登录" lay-submit="" lay-filter="login" style="width:100%;" type="submit">
+                <hr class="hr20" >
+            
+            </form>
+        </div>
+
+        <!-- 底部结束 -->
+
+    </body>
+</html>

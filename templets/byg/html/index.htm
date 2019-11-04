@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <?php include_once "header.htm"; ?>
+</head>
+
+<body>
+   <?php echo base64_decode($CONFIG["HEADER_CODE"]);?>
+   <div class="fixed"></div>
+   <div class="Logo"></div>
+
+   <nav id="menu" class="menu slideout-menu">
+
+
+         <?php if($CONFIG["play"]['off']['submit']==1):?>
+         <section class="menu-section">
+               <h3 class="menu-section-title">视频搜索</h3>
+               <form action="./"  method="get" id='submit'>
+                  <ui class="menu-section-list">
+                  <li><input id="wd"  type="text" name="wd" style="width: 98%;height:98%;text-align: center;" placeholder="输入视频名称"></li>
+                  <button type="submit" style="display:none;"></button> 
+                 <div id="word" style="display:none;"></div>
+                  <li onclick="document.getElementById('submit').submit();">搜索视频 </li>
+                  </ui>
+               </form>
+         
+            </section>
+    <?php endif ?>
+
+      <section class="menu-section">
+         <h3 class="menu-section-title">解析线路</h3>
+         <ul class="menu-section-list" id="line">
+         </ul>
+      </section>
+
+
+      <?php if($CONFIG["play"]['off']['live']==1):?>
+      <section class="menu-section">
+         <h3 class="menu-section-title">直播线路</h3>
+         <ul class="menu-section-list" id="live">
+         </ul>
+      </section>
+      <?php endif ?>
+   </nav>
+   <main id="main" class="panel slideout-panel">
+      <div class="header">
+         <div class="nav">
+            <button class="btn-hamburger" id="logo" style="display:none;top:"><span
+                  class="tooltip">不能播?点我</span></button>
+            <i id="list" class="list"> </i>
+         </div>
+         <div id="word" class="word"></div>
+         <button id="book" class="btns-hamburger">
+            <?php if($CONFIG["BOOK_INFO"]['off']==1):?>
+            <div class="AD_AD">
+               <marquee scrollamount=3><?php echo base64_decode($CONFIG["BOOK_INFO"]['info']);?></marquee>
+            </div>
+            <?php endif ?>
+         </button>
+      </div>
+      <div class="aside">
+         <div id="flaglist"> </div>
+         <div id="playlist"></div>
+      </div>
+      <div id="playad"></div>
+      <div id="player"> </div>
+   </main>
+   <?php include_once "player.htm"; ?>
+   <?php include_once "footer.htm"; ?>
+</body>
+
+</html>

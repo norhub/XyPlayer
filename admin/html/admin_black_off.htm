@@ -1,0 +1,58 @@
+<?php include "block_header.htm";?>
+
+    <body>
+        <div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a><cite>首页</cite></a>  
+                <a><cite>防火墙设置</cite></a>
+                <a><cite>开关控制</cite></a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        </div>
+        <div class="x-body">
+
+
+            <form class="layui-form layui-form-pane" action="">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        开关控制
+                    </label>
+                    <div class="layui-input-inline">
+                        <select name="BLACKLIST_OFF" lay-filter="province">							 
+                            <?php foreach (array("关闭", "开启") as $key => $val): ?>							 							 
+                                <option  value="<?php echo $key ?>"   <?php echo ($CONFIG["BLACKLIST"]['off'] == $key) ? "selected" : ''; ?> ><?php echo $val; ?></option>	   
+                            <?php endforeach; ?>   
+
+                        </select>
+
+                    </div>						  
+                    <div style=" padding-top:10px;color:#909090">防火墙总开关；
+                    </div>
+
+                </div>  
+
+                <div class="layui-form-item">
+                    <button class="layui-btn" lay-submit="" lay-filter="*">
+                        保存
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+        <script>
+
+             layui.use(['form', 'layer'], function () {
+                $ = layui.jquery;
+                var form = layui.form, layer = layui.layer;              
+                 //监听提交
+                 form.on('submit(*)', function (data){x_admin_post("save.php", data.field);return false;});
+            });
+        </script>
+
+
+
+    </body>
+
+</html>
